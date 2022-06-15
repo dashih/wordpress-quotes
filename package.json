@@ -1,0 +1,24 @@
+{
+  "name": "quotes",
+  "version": "1.0.0",
+  "description": "serve quotes",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dashih/quotes.git"
+  },
+  "author": "dshih",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dashih/quotes/issues"
+  },
+  "homepage": "https://github.com/dashih/quotes#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.11",
+    "fastify": "^4.0.2",
+    "mariadb": "^3.0.0"
+  }
+}
