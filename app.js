@@ -59,5 +59,5 @@ ${quote}
 });
 
 (async () => {
-    await fastify.listen({ port: port });
+    await fastify.listen({ port: port, host: '0.0.0.0' });
 })();
