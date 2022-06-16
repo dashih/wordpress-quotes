@@ -62,5 +62,5 @@ ${quote}
 });
 
 (async () => {
-    await fastify.listen({ port: port, host: listenIp });
+    await fastify.listen({ port: port });
 })();
