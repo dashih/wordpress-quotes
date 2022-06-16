@@ -1,18 +1,15 @@
 'use strict';
 
-const fs = require('fs');
 const fastify = require('fastify')( { logger: true });
 const mariadb = require('mariadb');
 const cheerio = require('cheerio');
 
-const config = JSON.parse(fs.readFileSync('config.json', 'utf8'));
-const listenIp = config.listenIp;
-const port = config.port;
+const port = 80;
 const pool = mariadb.createPool({
-    host: config.dbHost,
-    database: config.db,
-    user: config.dbUser,
-    password: config.dbPassword,
+    host: process.env.WORDPRESS_DB_HOST,
+    database: process.env.WORDPRESS_DB_NAME,
+    user: process.env.WORDPRESS_DB_USER,
+    password: process.env.WORDPRESS_DB_PASSWORD,
     connectionLimit: 1
 });
 
