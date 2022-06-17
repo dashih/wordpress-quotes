@@ -1,5 +1,6 @@
 'use strict';
 
+const fs = require('fs');
 const fastify = require('fastify')( { logger: true });
 const mariadb = require('mariadb');
 const cheerio = require('cheerio');
@@ -9,7 +10,7 @@ const pool = mariadb.createPool({
     host: process.env.WORDPRESS_DB_HOST,
     database: process.env.WORDPRESS_DB_NAME,
     user: process.env.WORDPRESS_DB_USER,
-    password: process.env.WORDPRESS_DB_PASSWORD,
+    password: fs.readFileSync(process.env.WORDPRESS_DB_PASSWORD_FILE, 'utf8'),
     connectionLimit: 1
 });
 
