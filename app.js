@@ -14,38 +14,16 @@ const pool = mariadb.createPool({
     connectionLimit: 1
 });
 
-// Returns JSON for all quotes. Intended for processing.
-fastify.get('/api/getAllQuotes', async (request, reply) => {
-    let conn;
-    try {
-        conn = await pool.getConnection();
-        const rows = await conn.query('SELECT * FROM wp_posts WHERE post_title = \'Quote\' AND post_type = \'post\'');
-        const res = [];
-        for (const row of rows) {
-            const $ = cheerio.load(row.post_content);
-            res.push({
-                speaker: $('cite').text(),
-                quote: $('p').text()
-            });
-        }
-
-        return res;
-    } finally {
-        if (conn) {
-            conn.end();
-        }
-    }
-});
-
-// Returns text for a random quote. Intended to be output directly.
 fastify.get('/api/getRandomQuote', async (request, reply) => {
     let conn;
     try {
         conn = await pool.getConnection();
-        const rows = await conn.query('SELECT * FROM wp_posts WHERE post_title = \'Quote\' AND post_type = \'post\' ORDER BY RAND() LIMIT 1');
+        const rows = await conn.query('SELECT * FROM wp_posts WHERE post_title = \'Quotes\' AND post_type = \'post\'');
         const $ = cheerio.load(rows[0].post_content);
-        const speaker = $('cite').text();
-        const quote = $('p').html().replace(/<br\s*[\/]?>/gi, '\n');
+        const blockquotes = $('blockquote');
+        const randomBq = blockquotes[Math.floor(Math.random() * blockquotes.length)];
+        const speaker = $('cite', randomBq).text();
+        const quote = $('p', randomBq).html().replace(/<br\s*[\/]?>/gi, '\n');
         return `
 ${quote}
 
