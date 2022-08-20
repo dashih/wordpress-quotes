@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  wordpress:
+    image: wordpress:6.0.1
+    container_name: wordpress_app
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: root
+      WORDPRESS_DB_PASSWORD: dumbledore
+      WORDPRESS_DB_NAME: wordpress
+    volumes:
+      - wordpress_dev_web:/var/www/html
+
+  quotes:
+    image: dannyshih/wordpress-quotes:v1.1.0
+    container_name: wordpress_quotes
+    restart: unless-stopped
+    ports:
+      - "8001:80"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: root
+      WORDPRESS_DB_PASSWORD: dumbledore
+      WORDPRESS_DB_NAME: wordpress
+
+  db:
+    image: mariadb:10.5.16
+    container_name: wordpress_db
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: dumbledore
+      MARIADB_DATABASE: wordpress
+    volumes:
+      - wordpress_dev_db:/var/lib/mysql
+
+
+  phpMyAdmin:
+    image: phpmyadmin:5.2.0
+    container_name: wordpress_phpMyAdmin
+    restart: unless-stopped
+    ports:
+      - "8002:80"
+    environment:
+      PMA_HOST: db
+
+volumes:
+  wordpress_dev_web:
+  wordpress_dev_db:

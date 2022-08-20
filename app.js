@@ -5,12 +5,15 @@ const fastify = require('fastify')( { logger: true });
 const mariadb = require('mariadb');
 const cheerio = require('cheerio');
 
+const dbPassword = process.env.WORDPRESS_DB_PASSWORD == undefined ?
+    fs.readFileSync(process.env.WORDPRESS_DB_PASSWORD_FILE, 'utf8') :
+    process.env.WORDPRESS_DB_PASSWORD;
 const port = 80;
 const pool = mariadb.createPool({
     host: process.env.WORDPRESS_DB_HOST,
     database: process.env.WORDPRESS_DB_NAME,
     user: process.env.WORDPRESS_DB_USER,
-    password: fs.readFileSync(process.env.WORDPRESS_DB_PASSWORD_FILE, 'utf8'),
+    password: dbPassword,
     connectionLimit: 1
 });
 
