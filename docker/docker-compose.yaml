@@ -16,7 +16,7 @@ services:
       - wordpress_dev_web:/var/www/html
 
   quotes:
-    image: dannyshih/wordpress-quotes:v1.1.0
+    image: dannyshih/wordpress-quotes:v1.1.1
     container_name: wordpress_quotes
     restart: unless-stopped
     ports:
