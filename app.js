@@ -41,5 +41,6 @@ ${quote}
 });
 
 (async () => {
-    await fastify.listen({ port: port, host: '0.0.0.0' });
+    // Per documentation, '::' listens on all addresses IPv6 and IPv4
+    await fastify.listen({ port: port, host: '::' });
 })();
