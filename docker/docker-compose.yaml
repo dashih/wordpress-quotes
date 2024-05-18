@@ -1,8 +1,6 @@
-version: '3.8'
-
 services:
   wordpress:
-    image: wordpress:6.3.2
+    image: wordpress:6.5.3
     container_name: wordpress_app
     restart: unless-stopped
     ports:
