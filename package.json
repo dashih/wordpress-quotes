@@ -1,6 +1,6 @@
 {
   "name": "quotes",
-  "version": "1.1.5",
+  "version": "1.2.0",
   "description": "serve quotes",
   "main": "app.js",
   "scripts": {
