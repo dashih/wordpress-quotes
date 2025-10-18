@@ -1,6 +1,8 @@
 services:
   wordpress:
-    image: wordpress:6.5.3
+    # user: test
+    # password: test
+    image: wordpress:6.8.3
     container_name: wordpress_app
     restart: unless-stopped
     ports:
@@ -14,8 +16,10 @@ services:
       - wordpress_dev_web:/var/www/html
 
   quotes:
-    image: dannyshih/wordpress-quotes:v1.1.5
+    image: registry.internal.dannyshih.net:5000/wordpress-quotes:v1.3.0
     container_name: wordpress_quotes
+    platform: linux/amd64
+    build: .
     restart: unless-stopped
     ports:
       - "8001:80"
